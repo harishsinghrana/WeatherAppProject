@@ -11,11 +11,9 @@ Users can be activated or deactivated to access the weather API data
 - User activation and deactivation
 
 ## API Endpoints
-- `/weather/{postalCode}/{userName}`: Get current weather data for the given postal code, with user name parameter.
-- `/weather/history/{postalCode}`: Get weather request history for the given postal code.
-- `/weather/history/user/{userName}`: Get weather request history for the given user.
-- `/weather/user/activate/{userName}`: Activates a user
-- `/weather/user/deactivate/{userName}`: Deactivates a user
+- `/weather/{postalCode}`: Get weather request history for the given postal code.
+- `/users/activate/{userName}`: Activates a user
+- `/users/deactivate/{userName}`: Deactivates a user
 
 ## Prerequisites
 - Java 17

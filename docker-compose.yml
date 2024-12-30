@@ -1,32 +1,44 @@
 version: '3.8'
+
 services:
-  weather-app:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    depends_on:
-      - db
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/weatherappdb
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+      SPRING_DATASOURCE_USERNAME: hrana
+      SPRING_DATASOURCE_PASSWORD: rana123
+      HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+    depends_on:
+      - db
+    networks:
+      - app-network
 
   db:
     image: mysql:8.0
-    container_name: weatherapp_db
+    container_name: mysql-db
+    restart: always
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: sadmin
       MYSQL_DATABASE: weatherappdb
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
+      MYSQL_USER: hrana
+      MYSQL_PASSWORD: rana123
+    command: >
+      --default-authentication-plugin=mysql_native_password
+      --require_secure_transport=OFF
     volumes:
       - db_data:/var/lib/mysql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
   db_data:
